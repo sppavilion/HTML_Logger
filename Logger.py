@@ -6,61 +6,62 @@ import bs4
 import sys
 import threading
 
-
 class Logger(object):
     def __init__(self, filename='log.html', title='Automation logs'):
-        html = """<!DOCTYPE html>
-<html lang="en">
-  <head>
-      <title>""" + str(title) + """</title>
-      <meta charset="utf-8">
-      <meta http-equiv="refresh" content="30">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
-      <style>
-          .box {
-            margin: 15px;
-          }
-          body {
-            font-family:Open Sans;
-            font-size:12;
-          }
-          h4 {
-            font-family:Roboto Slab;
-            font-size:14;
-          }
-
-          span.time {color:#00b300;}
-          span.caller {color:#0000b3;}
-          span.debug-message { color:#454545;}
-          span.info-message { color: #000000;}
-          span.warn-message { color:#cca300;font-weight:bold;}
-          span.error-message { color:#FF0000;}
-          span.critical-message { color:#cc0000;font-weight:bold;}
-
-      </style>
-  </head>
-  <body>
-    <div class="box">
-        <div class="card">
-            <div class="card-header">
-                <h4>""" + str(title) + """</h4>
-            </div>
-            <div class="card-block">
-                <table class="table">
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-  </body>
-</html>"""
+        html = """
+            <!DOCTYPE html>
+            <html lang="en">
+              <head>
+                  <title>""" + str(title) + """</title>
+                  <meta charset="utf-8">
+                  <meta http-equiv="refresh" content="30">
+                  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+                  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+                  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
+                  <style>
+                      .box {
+                        margin: 15px;
+                      }
+                      body {
+                        font-family:Open Sans;
+                        font-size:12;
+                      }
+                      h4 {
+                        font-family:Roboto Slab;
+                        font-size:14;
+                      }
+            
+                      span.time {color:#00b300;}
+                      span.caller {color:#0000b3;}
+                      span.debug-message { color:#454545;}
+                      span.info-message { color: #000000;}
+                      span.warn-message { color:#cca300;font-weight:bold;}
+                      span.error-message { color:#FF0000;}
+                      span.critical-message { color:#cc0000;font-weight:bold;}
+            
+                  </style>
+              </head>
+              <body>
+                <div class="box">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>""" + str(title) + """</h4>
+                        </div>
+                        <div class="card-block">
+                            <table class="table">
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+              </body>
+            </html>
+        """
         filebase, file_extension = os.path.splitext(filename)
         if file_extension != ".html":
             print("Invalid filename provided. Please give filename like `abctest.html`")
